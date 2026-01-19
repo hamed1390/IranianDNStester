@@ -41,7 +41,7 @@ DNS Tester is a Flutter application designed to test DNS servers for optimal per
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/dns_tester_app.git
+git clone https://github.com/hamed1390/IranianDNStester.git
 cd dns_tester_app
 
 # Install dependencies
@@ -136,7 +136,7 @@ DNS Tester یک برنامه Flutter برای تست سرورهای DNS با ه�
 
 ```bash
 # کلون کردن مخزن
-git clone https://github.com/yourusername/dns_tester_app.git
+git clone https://github.com/hamed1390/IranianDNStester.git
 cd dns_tester_app
 
 # نصب وابستگی‌ها
