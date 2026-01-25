@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_iOSApp:
+    name: Build Flutter App (iOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.7'
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter clean
+      - run: |
+          flutter build ios --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ../Runner.app
+          cd ..
+          zip -r app.ipa Payload
+
+  build_androidApk:
+    name: Build Flutter App (Android)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter clean
+      - run: flutter build apk --release
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*"
+          tag: v1.0.${{ github.run_number}}
+          token: ${{ secrets.TOKEN}}
