@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: write
 
 jobs:
   build_iOSApp:
@@ -49,4 +51,4 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/release/*"
           tag: v1.0.${{ github.run_number}}
-          token: ${{ secrets.TOKEN}}
+          token: ${{ secrets.GITHUB_TOKEN }}
